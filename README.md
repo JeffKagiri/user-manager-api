@@ -1,75 +1,104 @@
-# Mongoose CRUD Operations
+# User Manager API
 
-This project demonstrates **basic CRUD operations** (Create, Read, Update, Delete) using **Node.js**, **Express**, and **Mongoose** connected to a **MongoDB Atlas** database.
+A RESTful API built with Node.js, Express, and MongoDB (using Mongoose) for managing users. This API allows you to create, read, update, and delete user records. The database connection is configurable via MongoDB Atlas or a local MongoDB instance.
 
-## Features
-
-* Connects to MongoDB Atlas using Mongoose
-* Defines a `Person` model with `name`, `age`, and `favoriteFoods` fields
-* Performs the following operations:
-
-  * Create and save a single document
-  * Create multiple documents at once
-  * Find documents by name
-  * Find one document by a favorite food
-  * Find documents by ID
-  * Update documents (classic find-edit-save and `findOneAndUpdate`)
-  * Delete one document by ID
-  * Delete many documents by name
-  * Complex query: filter by favorite food, sort, limit, and select specific fields
+---
 
 ## Project Structure
 
 ```
-mongoose-crud-operations/
-├─ server.js           # Main server and CRUD operations
-├─ package.json        # Project dependencies
-├─ .env                # Environment variables (MongoDB URI)
-├─ .gitignore          # Ignored files and folders
+user-manager-api/
+│
+├── config/
+│   └── .env          # Environment variables
+│
+├── models/
+│   └── User.js       # Mongoose schema for users
+│
+├── server.js         # Express server and route definitions
+├── package.json
+├── package-lock.json
+└── README.md
 ```
+
+---
 
 ## Installation
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/JeffKagiri/mongoose-crud-operations.git
-   ```
+```bash
+git clone https://github.com/JeffKagiri/user-manager-api.git
+cd user-manager-api
+```
 
-2. Navigate to the project folder:
+2. Install dependencies:
 
-   ```bash
-   cd mongoose-crud-operations
-   ```
+```bash
+npm install
+```
 
-3. Install dependencies:
+3. Create a `.env` file in the `config` folder with your MongoDB URI:
 
-   ```bash
-   npm install
-   ```
+```env
+MONGO_URI='your_mongodb_connection_string'
+PORT=5000
+```
 
-4. Create a `.env` file in the root folder with your MongoDB Atlas URI:
+---
 
-   ```
-   MONGO_URI='your_mongodb_atlas_connection_string'
-   ```
+## Running the Server
 
-## Usage
-
-Run the server:
+Start the server:
 
 ```bash
 node server.js
 ```
 
-* Uncomment the function calls at the bottom of `server.js` to run specific CRUD operations.
-* Check the console for output of each operation.
+* The server will run on the port specified in `.env` (default `5000`).
+* You should see:
+
+```
+MongoDB connected
+Server running on port 5000
+```
+
+---
+
+## API Routes
+
+| Method | Endpoint     | Description         |
+| ------ | ------------ | ------------------- |
+| GET    | `/users`     | Get all users       |
+| POST   | `/users`     | Add a new user      |
+| PUT    | `/users/:id` | Update a user by ID |
+| DELETE | `/users/:id` | Delete a user by ID |
+
+---
+
+## Testing the API
+
+* Use [Postman](https://www.postman.com/downloads/) to send requests to the API.
+* Example JSON for POST or PUT:
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "age": 30
+}
+```
+
+---
 
 ## Notes
 
-* Do not commit your `.env` file or `node_modules` to GitHub.
-* The project demonstrates **asynchronous operations** with Mongoose using `async/await`.
+* `.env` and `node_modules` are excluded from version control via `.gitignore`.
+* MongoDB Atlas or local MongoDB can be used for the database connection.
+* Make sure to test all routes in Postman to confirm CRUD operations.
 
-## License
+---
 
-This project is open-source and free to use.
+## Author
+
+Jeff Kagiri
